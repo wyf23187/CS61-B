@@ -1,5 +1,14 @@
 public class HelloWorld {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-	}
-} 
+        String[] a = {"cat", "dog", "laser horse", "ketchup", "horse", "horbse"};
+
+        for (String s : a) {
+            for (int j = 0; j < 3; j += 1) {
+                System.out.println(s);
+                if (s.contains("horse")) {
+                    break;
+                }
+            }
+        }
+    }
+}
