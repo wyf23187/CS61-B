@@ -56,6 +56,7 @@ public class Tile {
         return next;
     }
 
+
     /** Return the distance in rows or columns between me and my successor
      *  tile (0 if I have no successor). */
     public int distToNext() {
@@ -66,7 +67,6 @@ public class Tile {
                             Math.abs(col - next.col()));
         }
     }
-
     @Override
     public String toString() {
         return String.format("%d@(%d, %d)", value(), col(), row());

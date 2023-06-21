@@ -113,7 +113,41 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        this.board.setViewingPerspective(side);
+        for(int i = 0; i < this.board.size(); i++)
+        {
+            int cnt = 0;
+            for(int j = this.board.size() - 1; j >= 0; j--)
+            {
+                Tile t = this.board.tile(i, j);
+                if(t != null)
+                {
+                    int k = j;
+                    while(k < this.board.size() - 1 && this.board.tile(i, k + 1) == null)
+                    {
+                        changed = true;
+                        k++;
+                    }
+                    if(k != j)
+                    {
+                        this.board.move(i, k, t);
+                    }
+                    t = this.board.tile(i, k );
+                    if(k < this.board.size() - 1 && this.board.tile(i, k + 1) != null && this.board.tile(i, k + 1).value() == t.value())
+                    {
+                        if(cnt == 0 || (cnt != 0 && k + 1 != this.board.size() - 1))
+                        {
+                            t.merge(i, k + 1, this.board.tile(i, k + 1));
+                            this.board.move(i, k + 1, t);
+                            this.score += this.board.tile(i, k + 1).value();
+                            changed = true;
+                        }
+                        cnt++;
+                    }
+                }
+            }
+        }
+        this.board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
@@ -138,7 +172,18 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        return false;
+        boolean flag = false;
+        for(int i = 0; i < b.size(); i++)
+        {
+            for(int j = 0; j < b.size(); j++)
+            {
+                if(b.tile(i, j) == null){
+                    flag = true;
+                    return flag;
+                }
+            }
+        }
+        return flag;
     }
 
     /**
@@ -148,7 +193,18 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
-        return false;
+        boolean flag = false;
+        for(int i = 0; i < b.size(); i++)
+        {
+            for(int j = 0; j < b.size(); j++)
+            {
+                if(b.tile(i, j) != null && b.tile(i, j).value() == MAX_PIECE){
+                    flag = true;
+                    return flag;
+                }
+            }
+        }
+        return flag;
     }
 
     /**
@@ -158,8 +214,53 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
+        boolean flag = false;
+        if(emptySpaceExists(b))
+        {
+            return !flag;
+        }
+        else
+        {
+            for(int i = 0; i < b.size(); i++)
+            {
+                for(int j = 0; j < b.size(); j++)
+                {
+                    if(i > 0)
+                    {
+                        if(b.tile(i, j).value() == b.tile(i - 1, j).value())
+                        {
+                            flag = true;
+                            return flag;
+                        }
+                    }
+                    if(i < b.size() - 1)
+                    {
+                        if(b.tile(i, j).value() == b.tile(i + 1, j).value())
+                        {
+                            flag = true;
+                            return flag;
+                        }
+                    }
+                    if(j > 0)
+                    {
+                        if(b.tile(i, j).value() == b.tile(i, j - 1).value())
+                        {
+                            flag = true;
+                            return flag;
+                        }
+                    }
+                    if(j < b.size() - 1)
+                    {
+                        if(b.tile(i, j).value() == b.tile(i, j + 1).value())
+                        {
+                            flag = true;
+                            return flag;
+                        }
+                    }
+                }
+            }
+        }
+        return flag;
     }
 
 
