@@ -589,7 +589,7 @@ public class TestModel extends TestUtils {
 
     @Test
     /** Move non-adjacent tiles down (no merging). */
-    public void testDownNonAdjacentNoMerge1() {
+    public void we1testDownNonAdjacentNoMerge1() {
         int[][] before = new int[][]{
                 {0, 0, 0, 0},
                 {0, 2, 0, 0},
