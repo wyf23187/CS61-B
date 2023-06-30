@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     private T[] items;
     private int head;
     private int tail;
@@ -19,6 +19,7 @@ public class ArrayDeque<T> {
         head = size + tail;
         size *= 2;
     }
+    @Override
     public void addLast(T item){
         if(head == tail && items[head] != null){
             resizeLarger();
@@ -27,6 +28,7 @@ public class ArrayDeque<T> {
         tail++;
         tail %= size;
     }
+    @Override
     public void addFirst(T item){
         if(head == tail && items[head] != null){
             resizeLarger();
@@ -35,6 +37,7 @@ public class ArrayDeque<T> {
         head = (head + size) % size;
         items[head] = item;
     }
+    @Override
     public boolean isEmpty(){
         return head == tail && items[head] == null;
     }
@@ -58,6 +61,7 @@ public class ArrayDeque<T> {
             tail = size;
         }
     }
+    @Override
     public T removeFirst(){
         if(Math.abs(head - tail) == size / 2){
             resizeShorter();
@@ -68,6 +72,7 @@ public class ArrayDeque<T> {
         head %= size;
         return returnValue;
     }
+    @Override
     public T removeLast(){
         if(Math.abs(head - tail) == size / 2){
             resizeShorter();
@@ -78,6 +83,7 @@ public class ArrayDeque<T> {
         tail = (size + tail) % size;
         return returnValue;
     }
+    @Override
     public void printDeque(){
         int tmphead = head;
         if(tmphead >= tail){
@@ -93,6 +99,7 @@ public class ArrayDeque<T> {
         }
         System.out.println();
     }
+    @Override
     public T get(int index){
         int cnt = 0;
         if(head + index >= size){
@@ -101,6 +108,7 @@ public class ArrayDeque<T> {
         }
         return items[head + index];
     }
+    @Override
     public int size(){
         return size;
     }

@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T>{
     private class StuffNode{
         public T item;
         public StuffNode pre;
@@ -19,24 +19,29 @@ public class LinkedListDeque<T> {
         sentinel.next = sentinel;
         sentinel.pre = sentinel;
     }
+    @Override
     public void addFirst(T item){
         size++;
         StuffNode newNode = new StuffNode(item, sentinel, sentinel.next);
         sentinel.next.pre = newNode;
         sentinel.next = newNode;
     }
+    @Override
     public void addLast(T item){
         size++;
         StuffNode newNode = new StuffNode(item, sentinel.pre, sentinel);
         sentinel.pre.next = newNode;
         sentinel.pre = newNode;
     }
+    @Override
     public boolean isEmpty(){
         return (sentinel.next == sentinel) && (sentinel.pre == sentinel);
     }
+    @Override
     public int size(){
         return size;
     }
+    @Override
     public void printDeque(){
         StuffNode it = sentinel;
         while(it.next != sentinel){
@@ -45,6 +50,7 @@ public class LinkedListDeque<T> {
         }
         System.out.println();
     }
+    @Override
     public T removeFirst(){
         T returnValue = sentinel.next.item;
         if(returnValue != null){
@@ -54,6 +60,7 @@ public class LinkedListDeque<T> {
         sentinel.next = sentinel.next.next;
         return returnValue;
     }
+    @Override
     public T removeLast(){
         T returnValue = sentinel.pre.item;
         if(returnValue != null){
@@ -63,6 +70,7 @@ public class LinkedListDeque<T> {
         sentinel.pre = sentinel.pre.pre;
         return returnValue;
     }
+    @Override
     public T get(int index){
         StuffNode it = sentinel;
         int cnt = 0;
@@ -73,19 +81,15 @@ public class LinkedListDeque<T> {
         return it.item;
     }
     public static void main(String[] args){
-        LinkedListDeque<String> s = new LinkedListDeque<String>();
-        s.addFirst("dad");
-        s.addFirst("mother");
-        s.addFirst("son");
-        s.addLast("grandmother");
-        s.addLast("grandfather");
-        s.printDeque();
-        System.out.println(s.size());
-        System.out.println(s.removeFirst());
-        System.out.println(s.removeLast());
-        System.out.println(s.size());
-        System.out.println(s.get(4));
-        s.printDeque();
+        Deque<Integer> a = new ArrayDeque<>();
+        for(int i = 0; i < 17; i++){
+            a.addLast(i);
+        }
+        a.addFirst(-100);
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.printDeque();
 
     }
 }
