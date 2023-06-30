@@ -98,6 +98,16 @@ public class LinkedListDeque<T> implements Deque<T>{
             return it.item;
         }
     }
+    @Override
+    public T getRecursive(int index){
+        return getRecursiveHelper(index, sentinel.next);
+    }
+    private T getRecursiveHelper(int index, StuffNode it){
+        if(index == 0){
+            return it.item;
+        }
+        return getRecursiveHelper(index - 1, it.next);
+    }
 
 
 

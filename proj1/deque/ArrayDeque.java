@@ -128,7 +128,6 @@ public class ArrayDeque<T> implements Deque<T>{
             return returnValue;
         }
     }
-    @Override
     public Iterator<T> iterator(){
         return new ArrayDequeIterator();
     }
@@ -152,6 +151,17 @@ public class ArrayDeque<T> implements Deque<T>{
             }
         }
         return true;
+    }
+    @Override
+    public T getRecursive(int index){
+        if(index >= size){
+            return null;
+        }
+        if(head + index >= size){
+            index = (head + index) % size;
+            return items[index];
+        }
+        return items[head + index];
     }
     public static void main(String[] args){
         java.util.Iterator<Integer> a = new ArrayDeque<Integer>().iterator();
