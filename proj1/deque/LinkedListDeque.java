@@ -2,9 +2,9 @@ package deque;
 
 public class LinkedListDeque<T> implements Deque<T>{
     private class StuffNode{
-        public T item;
-        public StuffNode pre;
-        public StuffNode next;
+        private T item;
+        private StuffNode pre;
+        private StuffNode next;
         public StuffNode(T i , StuffNode p, StuffNode n){
             item = i;
             pre = p;
@@ -79,6 +79,14 @@ public class LinkedListDeque<T> implements Deque<T>{
             it = it.next;
         }
         return it.item;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator();
+    }
+    private class LinkedListDequeIterator implements Iterator<T> {
+        // 迭代器实现...
     }
     public static void main(String[] args){
         Deque<Integer> a = new ArrayDeque<>();

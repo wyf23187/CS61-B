@@ -9,4 +9,6 @@ public interface Deque<T>{
     public T removeFirst();
     public T removeLast();
     public T get(int index);
+    public interface Iterator<T>{}
+    public Iterator<T> iterator();
 }
