@@ -13,7 +13,7 @@ public class LinkedListDeque<T> {
     }
     private StuffNode sentinel;
     private int size;
-    LinkedListDeque(){
+    public LinkedListDeque(){
         size = 0;
         sentinel = new StuffNode(null, null, null);
         sentinel.next = sentinel;

@@ -5,7 +5,7 @@ public class ArrayDeque<T> {
     private int head;
     private int tail;
     private int size;
-    ArrayDeque(){
+    public ArrayDeque(){
         size = 8;
         items = (T[])new Object[8];
         head = 0;
@@ -19,29 +19,29 @@ public class ArrayDeque<T> {
         head = size + tail;
         size *= 2;
     }
-    public void addLast(T x){
+    public void addLast(T item){
         if(head == tail && items[head] != null){
             resizeLarger();
         }
-        items[tail] = x;
+        items[tail] = item;
         tail++;
         tail %= size;
     }
-    public void addFirst(T x){
+    public void addFirst(T item){
         if(head == tail && items[head] != null){
             resizeLarger();
         }
         head--;
         head = (head + size) % size;
-        items[head] = x;
+        items[head] = item;
     }
     public boolean isEmpty(){
         return head == tail && items[head] == null;
     }
     private void resizeShorter(){
-//        if(size <= 16){
-//            return;
-//        }
+        if(size <= 16){
+            return;
+        }
         T[] newArray = (T[])new Object[size / 2];
         if(head > tail){
             System.arraycopy(items, 0, newArray, 0, tail);
