@@ -1,5 +1,5 @@
 package deque;
-
+import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T>{
     private T[] items;
     private int head;
@@ -112,22 +112,50 @@ public class ArrayDeque<T> implements Deque<T>{
     public int size(){
         return size;
     }
-    private class ArrayDequeIterator implements Iterator<T>{ }
+    private class ArrayDequeIterator implements Iterator<T>{
+        private int index;
+        public ArrayDequeIterator(){
+            index = 0;
+        }
+        @Override
+        public boolean hasNext(){
+            return index < size;
+        }
+        @Override
+        public T next(){
+            T returnValue = items[index];
+            index++;
+            return returnValue;
+        }
+    }
     @Override
     public Iterator<T> iterator(){
         return new ArrayDequeIterator();
     }
-    public static void main(String[] args){
-        ArrayDeque<Integer> test = new ArrayDeque<>();
-        for(int i = 0; i < 17; i++){
-            test.addLast(i);
+    @Override
+    public boolean equals(Object o){
+        if(o == null){
+            return false;
         }
-        int x = test.removeLast();
-        x = test.removeLast();
-        x = test.removeLast();
-        test.addFirst(5);
-        test.addLast(5);
-        test.printDeque();
-        System.out.println(test.get(2));
+        if(o.getClass() != this.getClass()){
+            return false;
+        }
+        ArrayDeque<T> other = (ArrayDeque<T>)o;
+        if(this.size() != other.size()){
+            return false;
+        }
+        Iterator<T> thisIterator = this.iterator();
+        Iterator<T> otherIterator = other.iterator();
+        while(thisIterator.hasNext()){
+            if(!thisIterator.next().equals(otherIterator.next())){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        java.util.Iterator<Integer> a = new ArrayDeque<Integer>().iterator();
+        System.out.println(a.hasNext());
+
     }
 }

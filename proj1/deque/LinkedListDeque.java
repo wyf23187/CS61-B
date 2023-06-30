@@ -1,5 +1,5 @@
 package deque;
-
+import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T>{
     private class StuffNode{
         private T item;
@@ -80,14 +80,28 @@ public class LinkedListDeque<T> implements Deque<T>{
         }
         return it.item;
     }
-
-    @Override
-    public Iterator<T> iterator() {
+    public Iterator<T> iterator(){
         return new LinkedListDequeIterator();
     }
-    private class LinkedListDequeIterator implements Iterator<T> {
-        // 迭代器实现...
+    private class LinkedListDequeIterator implements Iterator<T>{
+        private StuffNode it;
+        public LinkedListDequeIterator(){
+            it = sentinel;
+        }
+        @Override
+        public boolean hasNext(){
+            return it.next != sentinel;
+        }
+        @Override
+        public T next(){
+            it = it.next;
+            return it.item;
+        }
     }
+
+
+
+
     public static void main(String[] args){
         Deque<Integer> a = new ArrayDeque<>();
         for(int i = 0; i < 17; i++){
