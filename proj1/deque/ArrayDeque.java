@@ -26,7 +26,7 @@ public class ArrayDeque<T> implements Deque<T>{
         if(head == tail && items[head] != null){
             resizeLarger();
         }
-        items[tail] = item;
+        items[tail % size] = item;
         tail++;
         tail %= size;
         actualSize++;
@@ -175,8 +175,11 @@ public class ArrayDeque<T> implements Deque<T>{
         return items[head + index];
     }
     public static void main(String[] args){
-        java.util.Iterator<Integer> a = new ArrayDeque<Integer>().iterator();
-        System.out.println(a.hasNext());
+        Deque<Integer> deque = new ArrayDeque<>();
+        for(int i = 0; i < 1024; i++){
+            deque.addLast(i);
+        }
+        System.out.println(deque.get(1024));
 
     }
 }
