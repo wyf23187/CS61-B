@@ -5,7 +5,9 @@ public class ArrayDeque<T> implements Deque<T>{
     private int head;
     private int tail;
     private int size;
+    private int actualSize;
     public ArrayDeque(){
+        actualSize = 0;
         size = 8;
         items = (T[])new Object[8];
         head = 0;
@@ -27,6 +29,7 @@ public class ArrayDeque<T> implements Deque<T>{
         items[tail] = item;
         tail++;
         tail %= size;
+        actualSize++;
     }
     @Override
     public void addFirst(T item){
@@ -36,6 +39,7 @@ public class ArrayDeque<T> implements Deque<T>{
         head--;
         head = (head + size) % size;
         items[head] = item;
+        actualSize++;
     }
     @Override
     public boolean isEmpty(){
@@ -70,6 +74,9 @@ public class ArrayDeque<T> implements Deque<T>{
         items[head] = null;
         head++;
         head %= size;
+        if (returnValue != null){
+            actualSize--;
+        }
         return returnValue;
     }
     @Override
@@ -81,6 +88,9 @@ public class ArrayDeque<T> implements Deque<T>{
         items[(size + tail - 1) % size] = null;
         tail--;
         tail = (size + tail) % size;
+        if (returnValue != null){
+            actualSize--;
+        }
         return returnValue;
     }
     @Override
@@ -101,7 +111,9 @@ public class ArrayDeque<T> implements Deque<T>{
     }
     @Override
     public T get(int index){
-        int cnt = 0;
+        if(index >= size){
+            return null;
+        }
         if(head + index >= size){
             index = (head + index) % size;
             return items[index];
@@ -110,7 +122,7 @@ public class ArrayDeque<T> implements Deque<T>{
     }
     @Override
     public int size(){
-        return size;
+        return actualSize;
     }
     private class ArrayDequeIterator implements Iterator<T>{
         private int index;
