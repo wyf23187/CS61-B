@@ -98,7 +98,7 @@ public class LinkedListDeque<T> implements Deque<T>{
             return it.item;
         }
     }
-    @Override
+
     public T getRecursive(int index){
         return getRecursiveHelper(index, sentinel.next);
     }

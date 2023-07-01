@@ -152,7 +152,6 @@ public class ArrayDeque<T> implements Deque<T>{
         }
         return true;
     }
-    @Override
     public T getRecursive(int index){
         if(index >= size){
             return null;
