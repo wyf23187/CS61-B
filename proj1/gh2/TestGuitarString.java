@@ -58,7 +58,6 @@ public class TestGuitarString  {
         // is a Deque of length 4. 
         GuitarString s = new GuitarString(11025);
         s.pluck();
-
         // Record the front four values, ticcing as we go.
         double s1 = s.sample();
         s.tic();
