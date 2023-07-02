@@ -67,6 +67,9 @@ public class ArrayDeque<T> implements Deque<T>{
     }
     @Override
     public T removeFirst(){
+        if(isEmpty()){
+            return null;
+        }
         if(Math.abs(head - tail) == size / 2){
             resizeShorter();
         }
@@ -74,13 +77,16 @@ public class ArrayDeque<T> implements Deque<T>{
         items[head] = null;
         head++;
         head %= size;
-        if (returnValue != null){
+        if (returnValue != null) {
             actualSize--;
         }
         return returnValue;
     }
     @Override
     public T removeLast(){
+        if(isEmpty()){
+            return null;
+        }
         if(Math.abs(head - tail) == size / 2){
             resizeShorter();
         }
