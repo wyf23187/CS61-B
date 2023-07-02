@@ -73,13 +73,32 @@ public class MaxArrayDeque<T> implements Deque<T>{
     public T get(int index) {
         return items.get(index);
     }
-    @Override
     public T getRecursive(int index) {
         return items.getRecursive(index);
     }
-    @Override
     public Iterator<T> iterator() {
         return items.iterator();
+    }
+    public boolean equals(Object o) {
+        return items.equals(o);
+    }
+    public static void main(String[] args){
+        MaxArrayDeque<Integer> a = new MaxArrayDeque<>();
+        for(int i = 0; i < 17; i++){
+            a.addLast(i);
+        }
+        a.addFirst(100);
+        a.removeLast();
+        a.removeLast();
+        a.removeLast();
+        a.printDeque();
+        System.out.println(a.max());
+        System.out.println(a.max(new Comparator<Integer>(){
+            @Override
+            public int compare(Integer o1, Integer o2){
+                return o2 - o1;
+            }
+        }));
     }
 
 
