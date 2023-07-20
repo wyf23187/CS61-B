@@ -135,5 +135,16 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
     public java.util.Iterator<K> iterator(){
         throw new UnsupportedOperationException();
     }
+    public void printInOrder(){
+        printInOrderHelper(root);
+    }
+    private void printInOrderHelper(Node<K, V> node){
+        if(node == null){
+            return;
+        }
+        printInOrderHelper(node.left);
+        System.out.println(node.key + " " + node.value);
+        printInOrderHelper(node.right);
+    }
 
 }
