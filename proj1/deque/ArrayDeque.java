@@ -1,6 +1,6 @@
 package deque;
 import java.util.Iterator;
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private T[] items;
     private int head;
     private int tail;
@@ -150,15 +150,15 @@ public class ArrayDeque<T> implements Deque<T>{
         return new ArrayDequeIterator();
     }
     @Override
-    public boolean equals(Object o){
-        if(o == null){
+    public boolean equals(Object O){
+        if(O == null){
             return false;
         }
-        if(o.getClass() != this.getClass()){
+        if(O.getClass() != this.getClass()){
             return false;
         }
-        ArrayDeque<T> other = (ArrayDeque<T>)o;
-        if(this.size() != other.size()){
+        ArrayDeque<T> other = (ArrayDeque<T>)O;
+        if(other.size() != this.size()){
             return false;
         }
         Iterator<T> thisIterator = this.iterator();
@@ -181,11 +181,11 @@ public class ArrayDeque<T> implements Deque<T>{
         return items[head + index];
     }
     public static void main(String[] args){
-        Deque<Integer> deque = new ArrayDeque<>();
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
         for(int i = 0; i < 1024; i++){
             deque.addLast(i);
         }
-        System.out.println(deque.get(1024));
+        deque.printDeque();
 
     }
 }

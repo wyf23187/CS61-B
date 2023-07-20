@@ -4,11 +4,12 @@ public class HelloWorld {
 
         for (String s : a) {
             for (int j = 0; j < 3; j += 1) {
-                System.out.println(s);
+		System.out.println(s);
                 if (s.contains("horse")) {
                     break;
                 }
             }
         }
+	System.out.println(args[0]);
     }
 }

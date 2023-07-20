@@ -108,9 +108,29 @@ public class LinkedListDeque<T> implements Deque<T>{
         }
         return getRecursiveHelper(index - 1, it.next);
     }
-
-
-
+    @Override
+    public boolean equals(Object o){
+        if(o == null){
+            return false;
+        }
+        if(o.getClass() != this.getClass()){
+            return false;
+        }
+        LinkedListDeque<T> other = (LinkedListDeque<T>) o;
+        if(other.size() != this.size()){
+            return false;
+        }
+        StuffNode it1 = this.sentinel;
+        StuffNode it2 = other.sentinel;
+        while(it1.next != this.sentinel){
+            if(it1.next.item != it2.next.item){
+                return false;
+            }
+            it1 = it1.next;
+            it2 = it2.next;
+        }
+        return true;
+    }
 
     public static void main(String[] args){
         Deque<Integer> a = new ArrayDeque<>();

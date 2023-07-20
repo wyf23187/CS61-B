@@ -12,6 +12,5 @@ public interface Deque<T>{
     public T get(int index);
     public Iterator<T> iterator();
     public boolean equals(Object o);
-
     public T getRecursive(int index);
 }
