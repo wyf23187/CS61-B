@@ -135,14 +135,5 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
     public java.util.Iterator<K> iterator(){
         throw new UnsupportedOperationException();
     }
-    public static void main(String[] args){
-        BSTMap<String, Integer> bst = new BSTMap<>();
-        bst.put("hello", 5);
-        bst.put("world", 10);
-        bst.put("!", 15);
-        System.out.println(bst.get("hello"));
-        System.out.println(bst.get("world"));
-        System.out.println(bst.get("!"));
-    }
 
 }
