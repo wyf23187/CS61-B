@@ -1,4 +1,7 @@
 package bstmap;
+import java.util.Iterator;
+import java.util.Stack;
+import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
     private static class Node<K extends Comparable<K>, V>{
@@ -120,7 +123,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         return size;
     }
     @Override
-    public java.util.Set<K> keySet(){
+    public Set<K> keySet(){
         throw new UnsupportedOperationException();
     }
     @Override
@@ -133,7 +136,31 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
     }
     @Override
     public java.util.Iterator<K> iterator(){
-        throw new UnsupportedOperationException();
+        return new BSTMapIterator();
+    }
+    private class BSTMapIterator implements Iterator<K>{
+        private final Stack<Node<K, V>> stack;
+        public BSTMapIterator(){
+            stack = new Stack<>();
+            pushLeft(root);
+        }
+        private void pushLeft(Node<K, V> node){
+            if(node == null){
+                return;
+            }
+            stack.push(node);
+            pushLeft(node.left);
+        }
+        @Override
+        public boolean hasNext(){
+            return !stack.isEmpty();
+        }
+        @Override
+        public K next(){
+            Node<K, V> node = stack.pop();
+            pushLeft(node.right);
+            return node.key;
+        }
     }
     public void printInOrder(){
         printInOrderHelper(root);
@@ -145,6 +172,34 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         printInOrderHelper(node.left);
         System.out.println(node.key + " " + node.value);
         printInOrderHelper(node.right);
+    }
+    public void printTreeGraphically(){
+        printTreeGraphicallyHelper(root, 0);
+    }
+    private void printTreeGraphicallyHelper(Node<K, V> node, int space){
+        if(node == null){
+            return;
+        }
+        for(int i = 0; i < space; i++){
+            System.out.print(" ");
+        }
+        System.out.println(node.key + " " + node.value);
+        printTreeGraphicallyHelper(node.left, space + 2);
+        printTreeGraphicallyHelper(node.right, space + 2);
+
+    }
+    public static void main(String[] args){
+        BSTMap<String, Integer> bst = new BSTMap<>();
+        bst.put("a", 1);
+        bst.put("b", 2);
+        bst.put("c", 3);
+        bst.put("d", 4);
+        bst.put("e", 5);
+        bst.put("f", 6);
+        bst.put("g", 7);
+        for(String s : bst){
+            System.out.println(s);
+        }
     }
 
 }
