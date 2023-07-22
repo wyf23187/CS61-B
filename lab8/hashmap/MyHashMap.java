@@ -238,14 +238,5 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
         return keySet;
     }
-    public static void main(String[] args){
-        MyHashMap<String, Integer> b = new MyHashMap<>();
-        for (int i = 0; i < 51; i++) {
-            b.put("hi" + i, 1);
-        }
-        b.put("hi51", 1);
-        System.out.println(b.get("hi50"));
-        System.out.println(b.containsKey("hi50"));
-    }
 
 }
